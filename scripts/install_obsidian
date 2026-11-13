@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+# Installs / updates Obsidian (latest release tarball).
+source "$HOME/.scripts/_lib.sh"
+url=$(gh_asset obsidianmd/obsidian-releases '/obsidian-[0-9.]+\.tar\.gz$')
+[ -n "$url" ] || { echo "Obsidian asset not found"; exit 1; }
+fetch "$url" "$TMP/o.tar.gz"; tar -xzf "$TMP/o.tar.gz" -C "$TMP"
+dir=$(find "$TMP" -maxdepth 1 -type d -name 'obsidian-*' | head -1)
+install_bundle obsidian "$dir" obsidian "--ozone-platform-hint=auto"
+desktop_entry obsidian Obsidian obsidian
+echo "Obsidian updated."

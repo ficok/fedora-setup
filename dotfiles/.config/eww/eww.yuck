@@ -1,0 +1,33 @@
+(deflisten ws :initial "[]" "$HOME/.config/eww/scripts/workspaces")
+(defpoll time :interval "10s" "date '+%a %d %b  %H:%M'")
+(defpoll cpu  :interval "3s"  "vmstat 1 2 | tail -1 | awk '{print 100-$15}'")
+(defpoll mem  :interval "5s"  "free | awk '/Mem/{printf \"%d\", $3/$2*100}'")
+(defpoll vol  :interval "1s"  `wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{printf "%s%d%%", ($3 ? "muted " : ""), $2*100}'`)
+
+(defwidget workspaces []
+  (box :class "ws" :spacing 4
+    (for w in ws
+      (button :class {w.focused ? "ws-btn focused" : "ws-btn"}
+              :onclick "swaymsg workspace ${w.name}" "${w.name}"))))
+
+(defwindow topbar
+  :monitor 0 :windowtype "dock" :exclusive true :stacking "fg"
+  :geometry (geometry :x "0%" :y "4px" :width "98%" :height "32px" :anchor "top center")
+  (centerbox :class "bar"
+    (workspaces)
+    (button :class "mod" :onclick "kitty -e sh -c 'cal -3; read' &" time)
+    (box :halign "end" (systray :icon-size 16 :spacing 6))))
+
+(defwindow bottombar
+  :monitor 0 :windowtype "dock" :exclusive true :stacking "fg"
+  :geometry (geometry :x "0%" :y "4px" :width "98%" :height "32px" :anchor "bottom center")
+  (centerbox :class "bar"
+    (box :halign "start" :spacing 6
+      (button :class "mod" :onclick "kitty -e btop &" "CPU ${cpu}%")
+      (button :class "mod" :onclick "kitty -e btop &" "RAM ${mem}%"))
+    (box)
+    (box :halign "end" :spacing 6
+      (button :class "mod" :onclick "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle" :onrightclick "pavucontrol &" "VOL ${vol}")
+      (button :class "mod" :onclick "kitty -e nmtui &" "NET")
+      (button :class "mod" :onclick "blueman-manager &" "BT")
+      (button :class "mod" :onclick "powermenu &" "PWR"))))

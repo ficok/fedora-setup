@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# Installs / updates lf (latest release binary).
+source "$HOME/.scripts/_lib.sh"
+url=$(gh_asset gokcehan/lf 'lf-linux-amd64\.tar\.gz$')
+[ -n "$url" ] || { echo "lf asset not found"; exit 1; }
+fetch "$url" "$TMP/lf.tar.gz"; tar -xzf "$TMP/lf.tar.gz" -C "$TMP"
+install -m755 "$TMP/lf" "$BIN/lf"
+echo "lf updated."

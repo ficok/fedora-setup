@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+# Builds / updates SwayFX from its git repo (wlroots + scenefx are built in as static subprojects).
+# Run it again whenever SwayFX gets updates, then log out and back in.
+source "$HOME/.scripts/_lib.sh"
+git_sync https://github.com/WillPower3309/swayfx.git "$SRC/swayfx"
+cd "$SRC/swayfx"
+
+# Which wlroots / scenefx series this SwayFX revision needs (e.g. 0.20 and 0.5)
+wl=$(grep -oP "dependency\('wlroots-\K[0-9.]+" meson.build | head -1)
+sf=$(grep -oP "dependency\('scenefx-\K[0-9.]+" meson.build | head -1)
+wl_tag=$(latest_tag https://gitlab.freedesktop.org/wlroots/wlroots.git "${wl//./\\.}") || { echo "no wlroots $wl tag"; exit 1; }
+sf_tag=$(latest_tag https://github.com/wlrfx/scenefx.git "${sf//./\\.}") || { echo "no scenefx $sf tag"; exit 1; }
+echo "Building SwayFX against wlroots $wl_tag + scenefx $sf_tag"
+
+mkdir -p subprojects
+printf '[wrap-git]\nurl = https://gitlab.freedesktop.org/wlroots/wlroots.git\nrevision = %s\ndepth = 1\n' "$wl_tag" > subprojects/wlroots.wrap
+printf '[wrap-git]\nurl = https://github.com/wlrfx/scenefx.git\nrevision = %s\ndepth = 1\n' "$sf_tag" > subprojects/scenefx.wrap
+rm -rf build subprojects/wlroots subprojects/scenefx
+
+meson setup build --prefix="$HOME/.local" --buildtype=release --default-library=static
+ninja -C build
+# Stage, then copy with --remove-destination so a running sway binary can be replaced
+DESTDIR="$TMP/stage" meson install -C build --no-rebuild
+cp -a --remove-destination "$TMP/stage$HOME/.local/." "$HOME/.local/"
+echo "SwayFX installed to ~/.local/bin. Log out and back in to use the new build."

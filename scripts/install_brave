@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+# Installs / updates Brave (latest stable release zip from GitHub).
+source "$HOME/.scripts/_lib.sh"
+url=$(gh_asset brave/brave-browser '/brave-browser-[0-9][^/]*linux-amd64\.zip$')
+[ -n "$url" ] || { echo "Brave asset not found"; exit 1; }
+fetch "$url" "$TMP/b.zip"; mkdir "$TMP/brave"; unzip -q "$TMP/b.zip" -d "$TMP/brave"
+chmod +x "$TMP/brave/brave"
+install_bundle brave "$TMP/brave" brave "--ozone-platform-hint=auto"
+icon=$(ls "$OPT"/brave/product_logo_*.png 2>/dev/null | tail -1 || true)
+desktop_entry brave "Brave" "${icon:-brave}"
+echo "Brave updated."

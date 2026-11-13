@@ -1,0 +1,9 @@
+#!/bin/sh
+# The one and only session entry (see /usr/share/wayland-sessions/swayfx.desktop).
+# Exports session vars, then starts sway from inside a *login* shell so ~/.zprofile (PATH etc.)
+# is part of sway's environment, which every child (rofi, eww, kitty...) inherits.
+export XDG_SESSION_TYPE=wayland XDG_SESSION_DESKTOP=sway XDG_CURRENT_DESKTOP=sway
+export WLR_NO_HARDWARE_CURSORS=1 MOZ_ENABLE_WAYLAND=1 QT_QPA_PLATFORM="wayland;xcb"
+export _JAVA_AWT_WM_NONREPARENTING=1 ELECTRON_OZONE_PLATFORM_HINT=auto
+mkdir -p "$HOME/.cache"
+exec "${SHELL:-/bin/zsh}" -l -c 'exec sway --unsupported-gpu >"$HOME/.cache/sway.log" 2>&1'

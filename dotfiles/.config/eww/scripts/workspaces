@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# Streams sway workspaces as JSON for eww's deflisten.
+emit() { swaymsg -t get_workspaces | jq -c '[.[] | {name, focused}]'; }
+emit
+swaymsg -t subscribe -m '["workspace"]' | while read -r _; do emit; done

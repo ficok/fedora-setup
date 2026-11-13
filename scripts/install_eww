@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# Builds / updates eww (Wayland) from source.
+source "$HOME/.scripts/_lib.sh"
+git_sync https://github.com/elkowar/eww.git "$SRC/eww"
+cd "$SRC/eww"
+cargo build --release --no-default-features --features=wayland
+cp -f --remove-destination target/release/eww "$BIN/eww"
+echo "eww updated. Apply with: eww reload"

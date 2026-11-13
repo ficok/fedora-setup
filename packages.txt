@@ -1,0 +1,31 @@
+# One or more package names per line (space separated). '#' starts a comment.
+# Add your own packages anywhere. NVIDIA (akmod-nvidia) and rofi are handled in install.sh.
+
+# core / dev
+git curl wget tar unzip jq gcc gcc-c++ clang cmake make ninja-build meson pkgconf-pkg-config scdoc
+cargo rust python3 zsh util-linux-user
+
+# session / system
+greetd cage accountsservice dbus-tools xorg-x11-server-Xwayland xprop xdpyinfo xev
+xdg-desktop-portal-wlr xdg-desktop-portal-gtk qt5-qtwayland qt6-qtwayland wireplumber pipewire-pulseaudio
+akmods kernel-devel mokutil
+
+# wayland desktop
+swaybg swaylock swayidle mako grim slurp wl-clipboard brightnessctl kitty
+
+# apps / cli
+Thunar imv zathura zathura-pdf-mupdf blueman bluez NetworkManager-tui network-manager-applet pavucontrol
+fzf ripgrep fd-find bat btop tree
+
+# build deps: swayfx + wlroots + scenefx
+wayland-devel wayland-protocols-devel libxkbcommon-devel libinput-devel libdrm-devel mesa-libEGL-devel
+mesa-libGLES-devel mesa-libgbm-devel pixman-devel libseat-devel systemd-devel libxcb-devel xcb-util-wm-devel
+xcb-util-renderutil-devel xcb-util-errors-devel xcb-util-image-devel libdisplay-info-devel libliftoff-devel
+hwdata hwdata-devel vulkan-loader-devel vulkan-headers glslang lcms2-devel libevdev-devel pcre2-devel
+json-c-devel cairo-devel pango-devel gdk-pixbuf2-devel
+
+# build deps: eww
+gtk3-devel gtk-layer-shell-devel glib2-devel libdbusmenu-gtk3-devel
+
+# build deps: regreet
+gtk4-devel cairo-gobject-devel

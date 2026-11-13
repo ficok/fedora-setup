@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# Rofi power menu (bound to $mod+Shift+e and the eww power button).
+c=$(printf 'Lock\nLogout\nReboot\nShutdown' | rofi -dmenu -i -p power) || exit 0
+case $c in
+  Lock) swaylock -f ;;
+  Logout) swaymsg exit ;;
+  Reboot) systemctl reboot ;;
+  Shutdown) systemctl poweroff ;;
+esac

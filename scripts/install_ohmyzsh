@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+# Installs / updates oh-my-zsh and makes zsh the login shell.
+source "$HOME/.scripts/_lib.sh"
+if [ -d "$HOME/.oh-my-zsh/.git" ]; then
+  git -C "$HOME/.oh-my-zsh" pull -q --ff-only
+else
+  RUNZSH=no CHSH=no KEEP_ZSHRC=yes sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+fi
+zsh_path=$(command -v zsh)
+[ "$(getent passwd "$USER" | cut -d: -f7)" = "$zsh_path" ] || sudo chsh -s "$zsh_path" "$USER"
+echo "oh-my-zsh updated."

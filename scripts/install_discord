@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# Installs / updates Discord (latest tarball).
+source "$HOME/.scripts/_lib.sh"
+fetch "https://discord.com/api/download?platform=linux&format=tar.gz" "$TMP/d.tar.gz"
+tar -xzf "$TMP/d.tar.gz" -C "$TMP"
+install_bundle discord "$TMP/Discord" Discord "--ozone-platform-hint=auto"
+desktop_entry discord Discord "$OPT/discord/discord.png"
+echo "Discord updated."

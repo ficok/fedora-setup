@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# Installs / updates VS Code (latest stable tarball). Command: code
+source "$HOME/.scripts/_lib.sh"
+fetch "https://update.code.visualstudio.com/latest/linux-x64/stable" "$TMP/c.tar.gz"
+tar -xzf "$TMP/c.tar.gz" -C "$TMP"
+install_bundle vscode "$TMP/VSCode-linux-x64" bin/code "--ozone-platform-hint=auto" code
+desktop_entry code "Visual Studio Code" "$OPT/vscode/resources/app/resources/linux/code.png"
+echo "VS Code updated."
