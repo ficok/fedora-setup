@@ -1,0 +1,12 @@
+#!/bin/sh
+# lf previewer: images via kitty graphics protocol, text via bat.
+file="$1" w="$2" h="$3" x="$4" y="$5"
+case "$(file -Lb --mime-type -- "$file")" in
+  image/*)
+    kitty +kitten icat --silent --stdin no --transfer-mode file \
+      --place "${w}x${h}@${x}x${y}" "$file" </dev/null >/dev/tty
+    exit 1 ;;
+  text/*|application/json|application/xml|application/x-shellscript)
+    bat --color=always --style=plain --paging=never --line-range=:200 -- "$file" ;;
+  *) file -Lb -- "$file" ;;
+esac

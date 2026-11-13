@@ -1,0 +1,13 @@
+# ReGreet config (copied to /etc/greetd/regreet.toml by scripts/programs/70-greeter.sh).
+# Wallpaper: uncomment and point at an image the `greeter` user can read, e.g. in /usr/share/backgrounds/
+# [background]
+# path = "/usr/share/backgrounds/login.jpg"
+# fit = "Cover"
+
+[GTK]
+application_prefer_dark_theme = true
+# font_name = "JetBrains Mono 14"
+
+[commands]
+reboot   = [ "systemctl", "reboot" ]
+poweroff = [ "systemctl", "poweroff" ]

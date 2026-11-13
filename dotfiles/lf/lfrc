@@ -1,0 +1,21 @@
+set previewer ~/.config/lf/preview
+set cleaner   ~/.config/lf/cleaner
+set drawbox   true
+set info      size
+set ratios    1:2:3
+set hidden    false
+set icons     false
+
+# D = move to trash (works because gvfs is installed); DD would be rm, deliberately not bound
+cmd trash %gio trash "$fx"
+map D trash
+
+cmd mkdir ${{
+  printf "Directory name: "; read -r name
+  mkdir -p -- "$name"
+}}
+map a mkdir
+
+map <enter> shell
+cmd open &{{ xdg-open "$f" >/dev/null 2>&1 }}
+map o open

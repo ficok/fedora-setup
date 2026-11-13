@@ -1,0 +1,13 @@
+# Command-line tools (see CLI-TOOLS.md for how to use them)
+fzf
+ripgrep
+fd-find                      # provides the `fd` command
+bat
+btop
+jq
+tree
+unzip
+zip
+tar
+xz
+file

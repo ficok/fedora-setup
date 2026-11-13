@@ -1,0 +1,26 @@
+# Wayland desktop pieces that come from Fedora's own repos
+kitty
+mako                         # notifications
+swaybg                       # wallpaper
+grim                         # screenshots
+slurp                        # region selector
+swappy                       # screenshot annotation
+wl-clipboard
+cliphist                     # clipboard history
+xorg-x11-server-Xwayland     # runs X11 apps
+xorg-x11-utils               # xdpyinfo, xprop, ...
+xclip
+thunar                       # GUI file manager
+thunar-archive-plugin
+file-roller
+tumbler                      # thumbnails for thunar
+gvfs                         # trash, mounts
+gvfs-mtp                     # phones
+imv                          # image viewer
+zathura                      # PDF viewer
+zathura-pdf-mupdf
+polkit-gnome                 # auth dialogs for GUI apps
+adwaita-icon-theme
+google-noto-sans-fonts
+google-noto-emoji-fonts
+jetbrains-mono-fonts-all

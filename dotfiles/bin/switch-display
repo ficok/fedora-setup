@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+# switch-display <regex>|all     keep outputs whose NAME matches the regex enabled, disable the rest
+#   switch-display '^eDP'        laptop panel only
+#   switch-display '^DP-'        DisplayPort only (does not match eDP)
+#   switch-display '^HDMI'       HDMI only
+#   switch-display all           every connected output (positions auto-arranged left to right)
+# Wayland output names differ from X11's: eDP-1, DP-1, HDMI-A-1 ... list them with: swaymsg -t get_outputs
+pat="${1:?usage: switch-display <regex>|all}"
+mapfile -t outs < <(swaymsg -t get_outputs -r | jq -r '.[].name')
+
+keep=()
+for o in "${outs[@]}"; do
+  if [ "$pat" = all ] || [[ "$o" =~ $pat ]]; then keep+=("$o"); fi
+done
+if [ "${#keep[@]}" -eq 0 ]; then
+  notify-send "switch-display" "No output matches '$pat'. Available: ${outs[*]}" 2>/dev/null || echo "No output matches '$pat'" >&2
+  exit 1      # never disable everything: that would leave a black screen
+fi
+for o in "${keep[@]}"; do swaymsg -q output "$o" enable; done
+for o in "${outs[@]}"; do
+  [[ " ${keep[*]} " == *" $o "* ]] || swaymsg -q output "$o" disable
+done

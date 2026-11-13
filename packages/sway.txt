@@ -1,0 +1,7 @@
+# Sway and its companions, all from Fedora's own repos (no COPR).
+sway                         # includes swaymsg and swaynag
+swaylock
+swayidle
+swaybg
+xdg-desktop-portal-wlr       # screen sharing (Discord, OBS)
+dbus-tools

@@ -1,0 +1,20 @@
+# Core system, networking, audio, bluetooth. One package per line; '#' starts a comment.
+# Add anything you like to any packages/*.txt file; install.sh reads them all.
+NetworkManager
+NetworkManager-tui           # nmtui
+network-manager-applet       # nm-applet (tray icon)
+bluez
+blueman                      # bluetooth GUI + tray applet
+pipewire
+wireplumber
+pipewire-pulseaudio
+pavucontrol
+playerctl
+brightnessctl
+xdg-utils
+xdg-user-dirs
+xdg-desktop-portal
+xdg-desktop-portal-gtk       # file dialogs, settings
+dconf
+fuse-libs                    # AppImage support (Obsidian)
+openssh-clients

@@ -1,0 +1,7 @@
+/* Placeholder so the launcher bindings work out of the box.
+   Replace this file with your own launcher.rasi from your old setup. */
+configuration {
+    modi: "drun,run";
+    show-icons: true;
+}
+@theme "Arc-Dark"
