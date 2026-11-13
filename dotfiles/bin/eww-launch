@@ -1,5 +1,0 @@
-#!/usr/bin/env bash
-# (Re)start the eww daemon and open both bars (replaces polybar's launch.sh).
-eww kill >/dev/null 2>&1
-sleep 0.3
-exec eww open-many bar-top bar-bottom

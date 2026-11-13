@@ -1,6 +1,0 @@
-[Desktop Entry]
-Name=Sway (linux-setup)
-Comment=Sway with Wayland environment and NVIDIA handling
-Exec=/usr/local/bin/sway-session
-Type=Application
-DesktopNames=sway

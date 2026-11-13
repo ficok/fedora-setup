@@ -1,4 +1,0 @@
-# One font source per line; scripts/programs/80-fonts.sh installs them into ~/.local/share/fonts.
-#   git <repo-url>      clone the repo and install every .ttf/.otf in it (private repos need ssh keys without a passphrase)
-#   zip <url>           download a .zip and install every .ttf/.otf in it
-# Empty by default.
